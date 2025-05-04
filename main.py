@@ -1,7 +1,7 @@
 import asyncio
 from aiogram import Bot, Dispatcher
 from config import BOT_TOKEN
-from bot.handlers import start
+from bot.handlers import start, actions
 from database.main import init_db
 from database.models.pet import Pet
 from database.models.user import User
@@ -12,6 +12,7 @@ async def main():
     dp = Dispatcher()
 
     dp.include_router(start.router)
+    dp.include_router(actions.router)
 
     await init_db()
     print("Database initialized.")
