@@ -2,6 +2,9 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from config import BOT_TOKEN
 from bot.handlers import start
+from database.main import init_db
+from database.models.pet import Pet
+from database.models.user import User
 
 
 async def main():
@@ -10,6 +13,10 @@ async def main():
 
     dp.include_router(start.router)
 
+    await init_db()
+    print("Database initialized.")
+
+    print("Bot initialized.")
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
