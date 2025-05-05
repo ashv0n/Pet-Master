@@ -1,4 +1,4 @@
-from aiogram import Router, F, types
+from aiogram import Router, F
 from aiogram.types import Message, FSInputFile
 from database.main import async_session
 from database.models.user import User 
