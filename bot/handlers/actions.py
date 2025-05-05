@@ -7,6 +7,7 @@ from database.main import async_session
 from database.models.user import User 
 from database.models.pet import Pet 
 from datetime import datetime
+from .pet_profile import p_profile
 
 pets = [
     ("🐶 Собачка", "dog"),
@@ -50,12 +51,9 @@ async def cmd_my_pet(message: Message):
                     "К сожалению, у вас нет питомца. Давайте заведем его?\n",
                     reply_markup=kb.as_markup()
                 )
-
-            else: #SOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON
-                await message.answer(
-                    f"Ваш питомец: {pet.pet_name}\n"
-                )
-                return
+            
+            else: 
+                await p_profile(message, user, pet)
             
 @router.callback_query(F.data == "create_pet")
 async def create_pet(callback: CallbackQuery):
@@ -104,7 +102,7 @@ async def handle_choose_pet(callback: CallbackQuery, state: FSMContext):
 async def process_pet_name(message: Message, state: FSMContext):
 
     kb = InlineKeyboardBuilder()
-    kb.button(text="🐶 Мой питомец", callback_data="soon") #SOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON
+    kb.button(text="🐶 Мой питомец", callback_data="my_pet")
     kb.adjust(1)
 
     pet_name = message.text.strip().capitalize()
@@ -137,5 +135,5 @@ async def process_pet_name(message: Message, state: FSMContext):
     await state.clear()
 
     await message.answer(
-        f"Ваш новый питомец <b>{pet_w}</b> и зовут его <b>{pet_name}</b>! 🎉\n", parse_mode="html", reply_markup=kb.as_markup()
+        f"Ваш новый питомец <b>{pet_w}</b> и зовут его <b>{pet_name}</b>! 🎉\n", parse_mode="html"
     )
