@@ -1,10 +1,11 @@
 import asyncio
 from aiogram import Bot, Dispatcher
 from config import BOT_TOKEN
-from bot.handlers import start, actions, my_profile, unknown, info
+from bot.handlers import start, actions, my_profile, unknown, info, issue
 from database.main import init_db
 from database.models.pet import Pet
 from database.models.user import User
+from database.models.issue import Issue
 
 
 async def main():
@@ -16,7 +17,7 @@ async def main():
         actions.router,
         my_profile.router,
         info.router,
-
+        issue.router,
         
         unknown.router,
     ]

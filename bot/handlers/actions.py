@@ -35,6 +35,11 @@ async def cmd_my_pet(message: Message):
     async with async_session() as session:
         async with session.begin():
             user = await session.get(User, message.from_user.id)
+
+            if not user:
+                await message.answer("Пожалуйста, для начала напишите /start.")
+                return
+
             if user.user_pet_id:
                 pet = await session.get(Pet, user.user_pet_id)
             else:

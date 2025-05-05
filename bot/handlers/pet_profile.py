@@ -12,6 +12,11 @@ async def p_profile(message: Message, user: User, pet: Pet):
         async with async_session() as session:
             async with session.begin():
                 user = await session.get(User, message.from_user.id)
+
+                if not user:
+                    await message.answer("Пожалуйста, для начала напишите /start.")
+                    return            
+
                 pet = await session.get(Pet, user.user_pet_id)
                 if not user:
                     return
