@@ -41,6 +41,7 @@ async def cmd_start(message: Message):
                     is_banned=False,
                 )
                 session.add(new_user)
+                await session.commit()
 
     await message.answer(
         "Привет! Это проект Pet-Master. Тут ты можешь завести себе питомца и заботиться о нем.\n"

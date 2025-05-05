@@ -15,9 +15,9 @@ async def main():
     dp.include_router(actions.router)
 
     await init_db()
-    print("Database initialized.")
+    print("Database initialized successfully.")
 
-    print("Bot initialized.")
+    print("Bot initialized successfully.")
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
